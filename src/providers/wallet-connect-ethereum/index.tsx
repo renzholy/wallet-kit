@@ -2,7 +2,7 @@ import type { EthereumProviderOptions } from "@walletconnect/ethereum-provider/d
 import type { Transaction, TypedData } from "viem";
 import { Provider } from "../../type";
 
-const WalletConnectEthereumProvider: Provider<
+export const WalletConnectEthereumProvider: Provider<
   EthereumProviderOptions,
   { address: string; chainId: number },
   string | TypedData,
@@ -72,5 +72,3 @@ const WalletConnectEthereumProvider: Provider<
     },
   };
 };
-
-export default WalletConnectEthereumProvider;

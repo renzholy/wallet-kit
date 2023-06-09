@@ -1,7 +1,7 @@
 import type { Transaction, TypedData } from "viem";
 import { Provider } from "../../type";
 
-const InjectedEthereumProvider: Provider<
+export const InjectedEthereumProvider: Provider<
   {
     isMetaMask?: boolean;
     request(args: { method: "eth_requestAccounts" }): Promise<[string]>;
@@ -88,5 +88,3 @@ const InjectedEthereumProvider: Provider<
     });
   },
 });
-
-export default InjectedEthereumProvider;
