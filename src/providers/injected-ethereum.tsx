@@ -5,19 +5,7 @@ export const InjectedEthereumProvider: Provider<
   {
     isMetaMask?: boolean;
     request(args: { method: "eth_requestAccounts" }): Promise<[string]>;
-    on(eventName: "accountsChanged", listener: (args: [string]) => void): void;
-    removeListener(
-      eventName: "accountsChanged",
-      listener: (args: [string]) => void
-    ): void;
-
     request(args: { method: "eth_chainId" }): Promise<string>;
-    on(eventName: "chainChanged", listener: (args: string) => void): void;
-    removeListener(
-      eventName: "chainChanged",
-      listener: (args: string) => void
-    ): void;
-
     request(args: {
       method: "personal_sign";
       params: [string, string];
@@ -30,6 +18,20 @@ export const InjectedEthereumProvider: Provider<
       method: "eth_sendTransaction";
       params: [unknown];
     }): Promise<string>;
+
+    on(eventName: "accountsChanged", listener: (args: [string]) => void): void;
+    on(eventName: "chainChanged", listener: (args: string) => void): void;
+    on(eventName: "disconnect", listener: () => void): void;
+
+    removeListener(
+      eventName: "accountsChanged",
+      listener: (args: [string]) => void
+    ): void;
+    removeListener(
+      eventName: "chainChanged",
+      listener: (args: string) => void
+    ): void;
+    removeListener(eventName: "disconnect", listener: () => void): void;
   },
   { address: string; chainId: number },
   string | TypedData,
@@ -191,13 +193,19 @@ export const InjectedEthereumProvider: Provider<
       chainId = parseInt(args);
       callback({ address, chainId });
     };
+    const handleDisconnect = () => {
+      callback(undefined);
+    };
 
     ethereum.on("accountsChanged", handleAccountsChanged);
     ethereum.on("chainChanged", handleChainChanged);
+    ethereum.on("disconnect", handleDisconnect);
 
     return () => {
+      callback(undefined);
       ethereum.removeListener("accountsChanged", handleAccountsChanged);
       ethereum.removeListener("chainChanged", handleChainChanged);
+      ethereum.removeListener("disconnect", handleDisconnect);
     };
   },
 
