@@ -1,3 +1,4 @@
+import type { Transaction, TypedData } from "viem";
 import { Provider } from "../../type";
 
 export default {
@@ -33,10 +34,16 @@ export default {
       window.ethereum!.removeListener("chainChanged", handleChainChanged);
     };
   },
-  async signMessage(message) {
+  async signMessage(message, account) {
+    if (typeof message === "string") {
+      return window.ethereum!.request({
+        method: "personal_sign",
+        params: [message, account.address],
+      });
+    }
     return window.ethereum!.request({
-      method: "personal_sign",
-      params: [message],
+      method: "eth_signTypedData_v4",
+      params: [account.address, message],
     });
   },
   async sendTransaction(transaction) {
@@ -45,4 +52,8 @@ export default {
       params: [transaction],
     });
   },
-} satisfies Provider<{ address: string; chainId: number }, string, unknown>;
+} satisfies Provider<
+  { address: string; chainId: number },
+  string | TypedData,
+  Transaction
+>;

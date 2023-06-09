@@ -14,7 +14,11 @@ interface Window {
 
     request(args: {
       method: "personal_sign";
-      params: [string];
+      params: [string, string];
+    }): Promise<string>;
+    request(args: {
+      method: "eth_signTypedData_v4";
+      params: [string, unknown];
     }): Promise<string>;
     request(args: {
       method: "eth_sendTransaction";
