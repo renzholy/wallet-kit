@@ -21,6 +21,7 @@ export const WalletConnectEthereumProvider: Provider<
     },
 
     async connect(callback) {
+      await provider.connect(options);
       let [address] = await provider.request<[string]>({
         method: "eth_requestAccounts",
       });

@@ -7,10 +7,20 @@
   </head>
   <body>
     <script type="module">
+      import { WalletConnectEthereumProvider } from "./dist/index.js";
+      const provider = await WalletConnectEthereumProvider({
+        projectId: "1f1f8f27ca837c8d78b0b501153a8d74",
+        chains: [1],
+        showQrModal: true,
+      });
+      console.log(provider);
+      provider.connect(console.log);
+    </script>
+    <!-- <script type="module">
       import { InjectedEthereumProvider } from "./dist/index.js";
       const provider = await InjectedEthereumProvider(window.ethereum);
       console.log(provider);
       provider.connect(console.log);
-    </script>
+    </script> -->
   </body>
 </html>
