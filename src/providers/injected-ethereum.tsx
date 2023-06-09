@@ -1,5 +1,5 @@
 import type { Transaction, TypedData } from "viem";
-import { Provider } from "../../type";
+import { Provider } from "../type";
 
 export const InjectedEthereumProvider: Provider<
   {

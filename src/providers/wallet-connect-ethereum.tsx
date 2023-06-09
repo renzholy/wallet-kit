@@ -1,6 +1,6 @@
 import type { EthereumProviderOptions } from "@walletconnect/ethereum-provider/dist/types/EthereumProvider";
 import type { Transaction, TypedData } from "viem";
-import { Provider } from "../../type";
+import { Provider } from "../type";
 
 export const WalletConnectEthereumProvider: Provider<
   EthereumProviderOptions,
