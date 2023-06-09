@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text</title>
+  </head>
+  <body>
+    <label id="wc"></label>
+    <button onclick="walletConnectEthereumProvider.connect(console.log)">
+      Connect
+    </button>
+    <br />
+    <label id="ie"></label>
+    <button onclick="injectedEthereumProvider.connect(console.log)">
+      Connect
+    </button>
+
+    <script type="module">
+      import { h, render, Fragment } from "https://esm.sh/preact";
+      window.h = h;
+      window.Fragment = Fragment;
+      import {
+        WalletConnectEthereumProvider,
+        InjectedEthereumProvider,
+      } from "./dist/index.js";
+      window.walletConnectEthereumProvider =
+        await WalletConnectEthereumProvider({
+          projectId: "1f1f8f27ca837c8d78b0b501153a8d74",
+          chains: [1],
+          showQrModal: true,
+        });
+      window.injectedEthereumProvider = await InjectedEthereumProvider(
+        window.ethereum
+      );
+      render(
+        walletConnectEthereumProvider.icon(),
+        document.body.querySelector("#wc")
+      );
+      render(
+        injectedEthereumProvider.icon(),
+        document.body.querySelector("#ie")
+      );
+    </script>
+  </body>
+</html>
