@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "python3 -m http.server",
-    "build": "tsc && esbuild src/index.ts --bundle --format=esm --entry-names=[dir]/[name] --outbase=src --sourcemap --target=chrome58,firefox57,safari11,edge18 --outdir=dist --jsx=automatic"
+    "build": "tsc && esbuild src/providers/*.tsx --bundle --format=esm --entry-names=[dir]/[name] --outbase=src --sourcemap --target=chrome58,firefox57,safari11,edge18 --outdir=dist --jsx=automatic"
   },
   "devDependencies": {
     "@types/react-dom": "^18.2.4",
